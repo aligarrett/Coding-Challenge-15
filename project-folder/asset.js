@@ -9,5 +9,5 @@ export const assets = [
 ];
 
 export function getAssetById(id) {
-    return assets.find(asset => asset.id === id);
+    return assets.find(assets => assets.id === id);
 }
