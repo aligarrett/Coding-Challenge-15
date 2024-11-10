@@ -11,20 +11,20 @@ export class Transaction {
     }
 
     executeTransaction() {
-        const assets = getAssetByID(this.assetId);
-        if (!assets) {
+        const asset = getAssetById(this.assetId); // Corrected function name
+        if (!asset) {
             throw new Error(`Asset with ID ${this.assetId} not found`);
         }
         if (this.type === "buy") {
-            assets.quantity += this.quantity;
+            asset.quantity += this.quantity;
         
         } else if (this.type === "sell") {
-            if (assets.quantity < this.quantity) {
-                throw new Error(`Insufficient quantity for asset ${assets.name}.`)
+            if (asset.quantity < this.quantity) {
+                throw new Error(`Insufficient quantity for asset ${asset.name}.`);
             }
-            assets.quantity =+ this.quantity;
+            asset.quantity -= this.quantity; // Corrected operator
         } else {
-            throw new Error("Transaction type must be either 'buy' or 'sell'")
+            throw new Error("Transaction type must be either 'buy' or 'sell'");
         }
     }
 }
