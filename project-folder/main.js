@@ -3,31 +3,47 @@
 import { calculatePortfolioValue, getPortfolioAllocation } from './portfolio.js';
 import { Transaction } from './transaction.js';
 
-// Function to display portfolio
+// Wait until the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
 
-function displayPortfolio() {
-    const totalValue = calculatePortfolioValue();
-    console.log(`Total Portfolio Value: $${totalValue.toFixed(2)}`);
+    // Display text in the HTML body
+    function displayToPage(content, sectionId) {
+        const container = document.getElementById(sectionId);
+        if (container) {
+            const paragraph = document.createElement('p');
+            paragraph.textContent = content;
+            container.appendChild(paragraph);
+        } else {
+            console.error(`Section with id ${sectionId} not found.`);
+        }
+    }
 
-    const allocation = getPortfolioAllocation();
-    console.log("Portfolio Allocation:");
-    allocation.forEach(asset => {
-        console.log(`- ${asset.name} (${asset.type}): ${asset.allocation.toFixed(2)}%`);
-    });
-}
+    // Function to display portfolio details
+    function displayPortfolio() {
+        const totalValue = calculatePortfolioValue();
+        displayToPage(`Total Portfolio Value: $${totalValue.toFixed(2)}`, 'portfolio-output');
 
-// Display portfolio Value
+        const allocation = getPortfolioAllocation();
+        displayToPage("Portfolio Allocation:", 'portfolio-output');
+        allocation.forEach(asset => {
+            displayToPage(`${asset.name} (${asset.type}): ${asset.allocation.toFixed(2)}%`, 'portfolio-output');
+        });
+    }
 
-console.log("Portfolio:");
-displayPortfolio();
+    // Display initial portfolio value and allocation (Only call this once)
+    displayPortfolio();
 
-// Create transaction instances for different assets
-const transaction1 = new Transaction(1, 'buy', 30); // Buy 30 units of Vanguard S&P 500
-console.log(`Transaction 1: Buy 30 units of Vanguard S&P 500`); // Display transaction details
+    // Execute transactions and display the results
+    new Transaction(1, 'buy', 30); // Buy 30 units of Vanguard S&P 500
+    displayToPage(`Bought 30 units of Vanguard S&P 500`, 'transaction-output');
 
-const transaction2 = new Transaction(4, 'sell', 50); // Sell 50 units of SPDR Bloomberg Barclays High Yield Bond
-console.log(`Transaction 2: Sell 50 units of SPDR Bloomberg Barclays High Yield Bond`); // Display transaction details
+    new Transaction(4, 'sell', 50); // Sell 50 units of SPDR Bloomberg Barclays High Yield Bond
+    displayToPage(`Sold 50 units of SPDR Bloomberg Barclays High Yield Bond`, 'transaction-output');
 
-// Display the updated portfolio value after transactions
-const updatedPortfolioValue = calculatePortfolioValue();
-console.log(`Updated Portfolio Value: $${updatedPortfolioValue.toFixed(2)}`);
+    new Transaction(5, 'buy', 100); // Buy 100 units of Government Bond
+    displayToPage(`Bought 100 units of Government Bond`, 'transaction-output');
+
+    // Display the updated portfolio value after transactions
+    const updatedPortfolioValue = calculatePortfolioValue();
+    displayToPage(`Updated Portfolio Value: $${updatedPortfolioValue.toFixed(2)}`, 'updated-portfolio-output');
+});

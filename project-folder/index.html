@@ -4,11 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Portfolio Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fce4ec; /* Light pink background */
+            color: #880e4f; /* Darker pink text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #880e4f;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #portfolio-output, #transaction-output, #updated-portfolio-output {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f8bbd0; /* Lighter pink for sections */
+            border-radius: 5px;
+        }
+
+        #portfolio-output h2, #transaction-output h2, #updated-portfolio-output h2 {
+            margin-top: 0;
+            color: #880e4f;
+        }
+
+        p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #880e4f;
+        }
+    </style>
 </head>
 <body>
     <h1>Financial Portfolio Management System</h1>
 
-    <!-- Portfolio details and transaction log sections here -->
+    <div class="container">
+        <div id="portfolio-output" style="text-align: center;">
+            <h2>Portfolio Overview</h2>
+        </div>        
+        <div id="transaction-output" style="text-align: center;">
+            <h2>Transaction Log</h2>
+            <!-- Transaction details will be inserted here -->
+        </div>
+        <div id="updated-portfolio-output" style="text-align: center;">
+            <h2>Updated Portfolio</h2>
+            <!-- Updated portfolio value will be inserted here -->
+        </div>
+    </div>    
 
     <!-- Main script entry point with module type -->
     <script type="module" src="main.js"></script>
